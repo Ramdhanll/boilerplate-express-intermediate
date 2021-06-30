@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 import Database from "./config/Database.js"
 import cors from "cors"
 
-import { userRouter } from "./api/routes/index.js"
+import { authRouter, userRouter } from "./api/routes/index.js"
 
 const PORT = process.env.PORT || 5000
 dotenv.config()
@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }))
 Database()
 
 // Routes
+app.use("/api/auth", authRouter)
 app.use("/api/users", userRouter)
 
 app.use("/", (req, res) => {
