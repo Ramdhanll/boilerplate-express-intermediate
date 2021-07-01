@@ -7,7 +7,7 @@ import {
    register,
    seed,
    userDetail,
-} from "../controller/authController.js"
+} from "../controllers/authController.js"
 
 const authRouter = express.Router()
 
