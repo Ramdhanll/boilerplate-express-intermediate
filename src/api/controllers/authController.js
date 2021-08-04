@@ -1,14 +1,14 @@
-import { usersDummy } from "../..//Dummies/dummies.js"
-import User from "../models/userModel.js"
-import bcrypt from "bcrypt"
-import { generateToken } from "../helpers/jwt.js"
-import { validationResult } from "express-validator"
-import e from "express"
+import { usersDummy } from '../..//Dummies/dummies.js'
+import Users from '../models/usersModel.js'
+import bcrypt from 'bcrypt'
+import { generateToken } from '../helpers/jwt.js'
+import { validationResult } from 'express-validator'
+import e from 'express'
 
 export const seed = async (req, res) => {
-   await User.deleteMany({})
+   await Users.deleteMany({})
 
-   const createdUsers = await User.insertMany(usersDummy)
+   const createdUsers = await Users.insertMany(usersDummy)
 
    res.send(createdUsers)
 }
@@ -21,7 +21,7 @@ export const login = async (req, res) => {
 
    const { email, password } = req.body
 
-   const user = await User.findOne({ email })
+   const user = await Users.findOne({ email })
    if (user) {
       if (bcrypt.compareSync(password, user.password)) {
          return res.status(200).json({
@@ -35,7 +35,7 @@ export const login = async (req, res) => {
       }
    }
 
-   res.status(401).json({ message: "Invalid email or password!" })
+   res.status(401).json({ message: 'Invalid email or password!' })
 }
 
 export const register = async (req, res) => {
@@ -46,7 +46,7 @@ export const register = async (req, res) => {
 
    const { name, email, password, photo } = req.body
 
-   const user = new User({
+   const user = new Users({
       name,
       email,
       password: bcrypt.hashSync(password, 8),
@@ -66,13 +66,13 @@ export const register = async (req, res) => {
 export const userDetail = async (req, res) => {
    const userId = req.params.id
    try {
-      const user = await User.findById(userId).select("-password")
+      const user = await Users.findById(userId).select('-password')
       if (userId === req.user._id) {
          return res.status(200).json(user)
       } else {
          throw e
       }
    } catch (error) {
-      return res.status(404).json({ message: "User not found!" })
+      return res.status(404).json({ message: 'User not found!' })
    }
 }
