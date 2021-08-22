@@ -68,6 +68,11 @@ export const register = async (req, res) => {
    })
 }
 
+export const logout = async (req, res) => {
+   res.clearCookie('token')
+   res.send({ success: true })
+}
+
 export const userDetail = async (req, res) => {
    const userId = req.params.id
    try {

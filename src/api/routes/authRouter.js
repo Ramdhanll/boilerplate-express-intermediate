@@ -4,6 +4,7 @@ import { isAuth } from '../middleware/jwt.js'
 import Users from '../models/usersModel.js'
 import {
    login,
+   logout,
    register,
    seed,
    userDetail,
@@ -35,5 +36,7 @@ authRouter.post(
    body('photo').notEmpty().withMessage('the photo field is required!'),
    register
 )
+
+authRouter.post('/logout', isAuth, logout)
 
 export default authRouter
