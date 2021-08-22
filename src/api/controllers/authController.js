@@ -23,15 +23,20 @@ export const login = async (req, res) => {
 
    const user = await Users.findOne({ email })
    if (user) {
+      const token = generateToken(user)
+
       if (bcrypt.compareSync(password, user.password)) {
-         return res.status(200).json({
-            _id: user.id,
-            name: user.name,
-            email: user.email,
-            isAdmin: user.isAdmin,
-            photo: user.photo,
-            token: generateToken(user),
-         })
+         return res
+            .status(200)
+            .cookie('token', token, { httpOnly: true })
+            .json({
+               _id: user.id,
+               name: user.name,
+               email: user.email,
+               isAdmin: user.isAdmin,
+               photo: user.photo,
+               token,
+            })
       }
    }
 

@@ -1,6 +1,6 @@
 import express from 'express'
 import { body } from 'express-validator'
-import { isAuth } from '../middleware/isAuth.js'
+import { isAuth } from '../middleware/jwt.js'
 import Users from '../models/usersModel.js'
 import {
    login,
