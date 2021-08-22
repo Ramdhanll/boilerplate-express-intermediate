@@ -81,3 +81,33 @@ export const userDetail = async (req, res) => {
       return res.status(404).json({ message: 'User not found!' })
    }
 }
+
+/**
+ * Upload image from client to cloudinary
+ * 
+ * import cloudinary from '../helpers/cloudinary.js'
+   import streamifier from 'streamifier'
+   
+ *   if (req.file) {
+         streamifier.createReadStream(req.file.buffer).pipe(
+            cloudinary.uploader.upload_stream(
+               {
+                  folder: 'Hilman App',
+               },
+               async function (error, result) {
+                  if (error)
+                     return res
+                        .status(404)
+                        .json({ message: 'error upload photo' })
+                  user.photo = result.url
+
+                  const updatedUser = await user.save()
+                  res.status(200).json({
+                     message: 'User updated successfully!',
+                     data: { user: updatedUser },
+                  })
+               }
+            )
+         )
+      } 
+ */
