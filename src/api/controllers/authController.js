@@ -73,6 +73,20 @@ export const logout = async (req, res) => {
    res.send({ success: true })
 }
 
+export const status = async (req, res) => {
+   res.status(200).json({
+      status: 'success',
+      user: {
+         _id: req.user._id,
+         name: req.user.name,
+         email: req.user.email,
+         photo: req.user.photo,
+         gender: req.user.gender,
+      },
+      message: 'status login',
+   })
+}
+
 export const userDetail = async (req, res) => {
    const userId = req.params.id
    try {
