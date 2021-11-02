@@ -30,12 +30,14 @@ export const login = async (req, res) => {
             .status(200)
             .cookie('token', token, { httpOnly: true })
             .json({
-               _id: user.id,
+              user: {
+                  _id: user.id,
                name: user.name,
                email: user.email,
                isAdmin: user.isAdmin,
                photo: user.photo,
                token,
+              }
             })
       }
    }
